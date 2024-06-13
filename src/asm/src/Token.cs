@@ -3,13 +3,13 @@ namespace assembler;
 class Token {
     public string Name;
     public string Type;
-    public byte Length;
+    public string Location;
     public ushort Address;
 
-    public Token(string name, string type, byte length, ushort address) {
+    public Token(string name, string type, string location, ushort address) {
         Name = name;
         Type = type;
-        Length = length;
+        Location = location;
         Address = address;
     }
 

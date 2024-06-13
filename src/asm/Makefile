@@ -1,6 +1,10 @@
 CSPROJ = src/assembler.csproj
 
-all:
+all: build run
+
+build:
 	@dotnet build $(CSPROJ)
-	@clear
+	@echo
+
+run:
 	@./src/bin/Debug/net8.0/assembler test.asm
