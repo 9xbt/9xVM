@@ -76,6 +76,11 @@ static class Parser {
                     Output.Add(0x11);
                     Output.Add(0x00);
                 }
+
+                Output.Add((byte)(firstVal & 0xFF)); // low
+                Output.Add((byte)(firstVal >> 8)); // high
+                Output.Add((byte)(secondVal & 0xFF)); // low
+                Output.Add((byte)(secondVal >> 8)); // high
                 break;
 
             case "hlt":
@@ -88,8 +93,11 @@ static class Parser {
     }
 
     static bool ParseNumber(string input, out ushort output) {
+        bool isHex = false;
+
         if (input.StartsWith("0x", StringComparison.OrdinalIgnoreCase)) {
             input = input.Substring(2);
+            isHex = true;
         }
 
         try {
@@ -98,7 +106,7 @@ static class Parser {
                 return true;
             }
 
-            output = Convert.ToUInt16(input);
+            output = Convert.ToUInt16(input, isHex ? 16 : 0);
             return true;
         }
         catch {

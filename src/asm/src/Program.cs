@@ -10,11 +10,9 @@ static class Program {
 
         Parser.ParseTokens();
 
+        Console.WriteLine("Writing output...");
+        File.WriteAllBytes(args[0].Replace(".asm", ".bin"), Parser.Output.ToArray());
+
         Console.WriteLine("Compilation successful!");
-        Console.WriteLine("Output length: " + Parser.Output.Count);
-        foreach (byte b in Parser.Output) {
-            Console.Write("0x" + b.ToString("X2") + " ");
-        }
-        Console.WriteLine();
     }
 }

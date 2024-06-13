@@ -13,12 +13,12 @@ class Token {
         Address = address;
     }
 
-    public Token? GetNext() {
+    public Token GetNext() {
         for (int i = 0; i < Parser.Tokens.Count; i++) {
             if (Parser.Tokens[i] == this) {
                 return Parser.Tokens[i + 1];
             }
         }
-        return null;
+        return null!;
     }
 }
