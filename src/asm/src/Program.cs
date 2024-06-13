@@ -14,8 +14,8 @@ static class Program {
         
         Parser.Filename = args[0];
         string outputFile = args[0].Replace(".asm", ".bin");
-        Console.WriteLine("    " + args[0] + " -> " + outputFile);
-        
+        Console.WriteLine("    " + args[0] + " -> " + outputFile + "\n");
+
         string[] lines = File.ReadAllLines(args[0]);
 
         try {
@@ -32,7 +32,7 @@ static class Program {
     }
 
     public static void DisplayWarning(Token t, string msg) {
-        Console.Write("\n" + t.Location + ": ");
+        Console.Write(t.Location + ": ");
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.Write("warning: ");
         Console.ResetColor();
@@ -42,15 +42,13 @@ static class Program {
     }
 
     public static void DisplayError(Token t, string msg) {
-        Console.Write("\n" + t.Location + ": ");
+        Console.Write(t.Location + ": ");
         Console.ForegroundColor = ConsoleColor.Red;
         Console.Write("error: ");
         Console.ResetColor();
         Console.WriteLine(msg);
 
         Errors += 1;
-
-        DisplayInfo();
     }
 
     public static void DisplayInfo() {

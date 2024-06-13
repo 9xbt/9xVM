@@ -1,2 +1,4 @@
-	jmp 0x8003
+	mov x 0x2000
+	mov y abc
+label
 	hlt

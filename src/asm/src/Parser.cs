@@ -17,19 +17,23 @@ static class Parser {
             string[] tokens = line.Trim().Replace("\' \'", "0x20").Split(' ');
 
             for (int t = 0; t < tokens.Length; t++) {
-                Tokens.Add(new Token(tokens[t], t == 0 ? "instruction" : "operand", Filename + ":" + i + ":" + line.IndexOf(tokens[t]), StartAddress));
+                var token = new Token(tokens[t], t == 0 ? "instruction" : "operand", Filename + ":" + (i + 1) + ":" + (line.IndexOf(tokens[t]) + 1), StartAddress);
+                Tokens.Add(token);
 
 #if DEBUG_INFO
-                var token = Tokens[Tokens.Count - 1];
                 Console.WriteLine("Added token " + token.Name + " of type " + token.Type);
 #endif
             }
         }
         else {
-            Tokens.Add(new Token(line.Split(':')[0], "label", Filename + ":" + i + ":0", StartAddress));
+            var token = new Token(line.Split(':')[0], "label", Filename + ":" + (i + 1) + ":0", StartAddress);
+            Tokens.Add(token);
+
+            if (!line.EndsWith(':')) {
+                Program.DisplayError(token, "missing operand");
+            }
 
 #if DEBUG_INFO
-            var token = Tokens[Tokens.Count - 1];
             Console.WriteLine("Added token " + token.Name + " of type " + token.Type);
 #endif
         }

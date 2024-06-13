@@ -59,25 +59,42 @@ int CPU_Execute(CPU* cpu) {
 
         case 0x0011:
             /* MOV [addr] [reg] */
+            memcpy(&cpu->addressBus, cpu->memory + cpu->PC + 2, 2);
+            memcpy(&cpu->registerBus, cpu->memory + cpu->PC + 4, 2);
+            memcpy(cpu->memory + cpu->addressBus, &cpu->regs[cpu->registerBus - 1], 2);
+
+            cpu->PC += 6;
             break;
 
         case 0x0012:
             /* MOV [reg] [val] */
             memcpy(&cpu->registerBus, cpu->memory + cpu->PC + 2, 2);
             memcpy(&cpu->dataBus, cpu->memory + cpu->PC + 4, 2);
-            memcpy(&cpu->regs[cpu->registerBus], &cpu->dataBus, 2);
+            memcpy(&cpu->regs[cpu->registerBus - 1], &cpu->dataBus, 2);
 
             cpu->PC += 6;
             break;
 
         case 0x0013:
             /* MOV [reg] [reg] */
+            memcpy(&cpu->registerBus, cpu->memory + cpu->PC + 2, 2);
+            cpu->addressBus = cpu->regs[cpu->registerBus - 1];
+            memcpy(&cpu->registerBus, cpu->memory + cpu->PC + 4, 2);
+            memcpy(cpu->memory + cpu->addressBus, &cpu->registerBus, 2);
+
+            cpu->PC += 6;
             break;
 
         case 0xFFFF:
             cpu->state = CPU_HALT;
 
             printf("CPU Halted!\n");
+            return 0;
+
+        default:
+            cpu->state = CPU_HALT;
+
+            printf("CPU Error: invalid opcode\n");
             return 0;
     }
 
