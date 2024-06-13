@@ -19,6 +19,8 @@ void TVO_WriteChar(SDL_Renderer* renderer, char c, int x, int y) {
 }
 
 void TVO_Render(SDL_Renderer* renderer, CPU* cpu) {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     for (int y = 0; y < TVO_HEIGHT; y++) {
         for (int x = 0; x < TVO_WIDTH; x++) {
