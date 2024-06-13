@@ -448,3 +448,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Solution files
+*.sln
