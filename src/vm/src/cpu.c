@@ -34,8 +34,11 @@ int CPU_Execute(CPU* cpu) {
             break;
 
         case 0x0001:
-            //cpu->memory[cpu->PC += 2];
-            memcpy(cpu->memory + (cpu->PC += 2), cpu->memory + (cpu->PC += 2), 2);
+            memcpy(&cpu->addressBus, cpu->memory + cpu->PC + 2, 2);
+            memcpy(&cpu->dataBus, cpu->memory + cpu->PC + 4, 2);
+            memcpy(cpu->memory + cpu->addressBus, &cpu->dataBus, 2);
+
+            cpu->PC += 6;
             break;
 
         case 0xFFFF:

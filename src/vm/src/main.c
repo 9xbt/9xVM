@@ -11,19 +11,21 @@ CPU cpu;
 
 void SDL_Update() {
     SDL_Event e;
-    while (!(cpu.state & 1)) {
-        if (CPU_Execute(&cpu)) {
-            printf("Generic CPU Error\n");
+    while (true) {
+        if (!(cpu.state & 1)) {
+            if (CPU_Execute(&cpu)) {
+                printf("Generic CPU Error\n");
 
-            SDL_DestroyRenderer(renderer);
-            SDL_DestroyWindow(window);
-            SDL_Quit();
+                SDL_DestroyRenderer(renderer);
+                SDL_DestroyWindow(window);
+                SDL_Quit();
 
-            exit(1);
+                exit(1);
+            }
+
+            TVO_Render(renderer, &cpu);
+            SDL_RenderPresent(renderer);
         }
-
-        TVO_Render(renderer, &cpu);
-        SDL_RenderPresent(renderer);
 
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
@@ -68,6 +70,4 @@ int main(int argc, char **argv) {
 
     CPU_Init(&cpu, rom);
     SDL_Update();
-
-    return 0;
 }

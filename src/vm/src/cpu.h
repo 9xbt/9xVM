@@ -15,6 +15,9 @@ typedef struct {
     uint16_t register_y;
 
     uint8_t state;
+
+    uint16_t addressBus;
+    uint16_t dataBus;
 } CPU;
 
 void CPU_Init(CPU* cpu, uint8_t* rom);
