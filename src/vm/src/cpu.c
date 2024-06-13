@@ -62,15 +62,6 @@ int CPU_Execute(CPU* cpu) {
             /* MOV [reg] [reg] */
             break;
 
-        case 0x0020:
-            /* INC [addr] */
-            memcpy(&cpu->addressBus, cpu->memory + cpu->PC + 2, 2);
-            memcpy(&cpu->dataBus, cpu->memory + cpu->addressBus, 2);
-            cpu->dataBus++;
-            memcpy(cpu->memory + cpu->addressBus, &cpu->dataBus, 2);
-
-            cpu->PC += 4;
-            break;
         case 0xFFFF:
             cpu->state = CPU_HALT;
 
