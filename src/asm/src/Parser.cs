@@ -13,7 +13,7 @@ static class Parser {
             return;
         }
         else if (line.StartsWith('\t')) {
-            string[] tokens = line.Trim().Split(' ');
+            string[] tokens = line.Trim().Replace("\' \'", "0x20").Split(' ');
 
             for (int t = 0; t < tokens.Length; t++) {
                 Tokens.Add(new Token(tokens[t], t == 0 ? "instruction" : "operand", 2, CurrentAddress));
