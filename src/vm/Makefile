@@ -7,7 +7,7 @@ OBJECTS = $(CFILES:.c=.o)
 all: $(OUT)
 
 run:
-	./vm ../../test/test.bin
+	./vm test.bin
 
 $(OUT): $(OBJECTS)
 	$(CC) $(OBJECTS) $(CFLAGS) -lSDL2 -o $(OUT)

@@ -1,0 +1,4 @@
+	mov 0x2000 'C'
+	inc 0x2000
+halt:
+	hlt
