@@ -89,7 +89,7 @@ static class Parser {
 
                 if (operands[0] == "value") {
                     if (opValues[0] < CurrentAddress + 4) {
-                        Program.DisplayWarning(t.GetNext(), "probably accidental infinite loop");
+                        Program.DisplayWarning(t.GetNext(), "possibly accidental infinite loop");
                     }
 
                     Output.Add(0x01);
