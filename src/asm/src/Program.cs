@@ -54,8 +54,9 @@ static class Program {
     public static void DisplayInfo() {
         Watch.Stop();
 
+        if (Warnings != 0 || Errors != 0) Console.WriteLine();
         Console.ForegroundColor = Errors == 0 ? ConsoleColor.Green : ConsoleColor.Red;
-        Console.WriteLine(Errors == 0 ? "\nBuild succeeded!" : "\nBuild failed!");
+        Console.WriteLine(Errors == 0 ? "Build succeeded!" : "Build failed!");
         Console.ResetColor();
         if (Warnings != 0) Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("    " + Warnings + " Warning(s)");

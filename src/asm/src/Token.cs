@@ -11,20 +11,20 @@ class Token {
         Type = type;
         Location = location;
         Address = address;
+    }
 
+    public override string ToString() {
+        return "Token " + Name + " with type " + Type + " at " + Location + " at address " + Address.ToString("X4");
     }
 
     public Token GetNext() {
-        for (int i = 0; i < Parser.Tokens.Count; i++) {
-            if (Parser.Tokens[i + 1].Location.Split(':')[1] != Location.Split(':')[1]) {
-                Program.DisplayError(this, "missing operand");
-                return null!;
-            }
+        var token = Parser.Tokens[Parser.Tokens.IndexOf(this) + 1];
 
-            if (Parser.Tokens[i] == this && Parser.Tokens[i].Type != "label" && i + 1 < Parser.Tokens.Count) {    
-                return Parser.Tokens[i + 1];
-            }
+        if (token.Location.Split(':')[1] != Location.Split(':')[1]) {
+            Program.DisplayError(this, "missing operand");
+            return null!;
         }
-        return null!;
+
+        return token;
     }
 }

@@ -30,7 +30,7 @@ static class Parser {
             Tokens.Add(token);
 
             if (!line.EndsWith(':')) {
-                Program.DisplayError(token, "missing operand");
+                Program.DisplayError(token, "missing separator");
             }
 
 #if DEBUG_INFO
