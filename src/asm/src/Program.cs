@@ -24,7 +24,9 @@ static class Program {
             }
 
             Parser.ParseTokens();
-        } catch { }
+        } catch (Exception e) {
+            Console.WriteLine(e.ToString());
+        }
 
         File.WriteAllBytes(outputFile, Parser.Output.ToArray());
 

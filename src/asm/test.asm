@@ -1,2 +1,0 @@
-	mov x y
-	hlt

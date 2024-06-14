@@ -1,4 +1,4 @@
-//#define DEBUG_INFO
+#define DEBUG_INFO
 
 namespace assembler;
 
@@ -21,7 +21,7 @@ static class Parser {
                 Tokens.Add(token);
 
 #if DEBUG_INFO
-                Console.WriteLine("Added token " + token.Name + " of type " + token.Type);
+                Console.WriteLine("Added token " + token.Name + " of type " + token.Type + " at location " + token.Location);
 #endif
             }
         }
@@ -167,6 +167,10 @@ static class Parser {
     }
 
     static string ParseOperand(Token t, out ushort value) {
+        if (t == null) {
+            Console.WriteLine("AAAAA");
+        }
+
         if (t.Name == "a") {
             value = 1;
             return "register";
@@ -195,6 +199,8 @@ static class Parser {
 
     static Token GetLabelByName(Token parent, string name) {
         foreach (Token t in Tokens) {
+            Console.WriteLine(t.Type);
+
             if (t.Type == "label" && t.Name == name) {
                 return t;
             }
