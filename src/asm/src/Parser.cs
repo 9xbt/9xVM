@@ -26,7 +26,7 @@ static class Parser {
             }
         }
         else {
-            var token = new Token(line.Split(':')[0], "label", Filename + ":" + (i + 1) + ":0", StartAddress);
+            var token = new Token(line.Split(':')[0], "label", Filename + ":" + (i + 1) + ":1", StartAddress);
             Tokens.Add(token);
 
             if (!line.EndsWith(':')) {
@@ -88,10 +88,6 @@ static class Parser {
                 operands[0] = ParseOperand(t.GetNext(), out opValues[0]);
 
                 if (operands[0] == "value") {
-                    if (opValues[0] < CurrentAddress + 4) {
-                        Program.DisplayWarning(t.GetNext(), "possibly accidental infinite loop");
-                    }
-
                     Output.Add(0x01);
                     Output.Add(0x00);
                 }
