@@ -16,14 +16,12 @@ class Token {
 
     public Token GetNext() {
         for (int i = 0; i < Parser.Tokens.Count; i++) {
-            Console.WriteLine("i:    " + Parser.Tokens[i].Location);
-            Console.WriteLine("this: " + Location);
-            if (Parser.Tokens[i].Location.Split(':')[1] != Location.Split(':')[1]) {
+            if (Parser.Tokens[i + 1].Location.Split(':')[1] != Location.Split(':')[1]) {
                 Program.DisplayError(this, "missing operand");
                 return null!;
             }
 
-            if (Parser.Tokens[i] == this && Parser.Tokens[i].Type != "label") {    
+            if (Parser.Tokens[i] == this && Parser.Tokens[i].Type != "label" && i + 1 < Parser.Tokens.Count) {    
                 return Parser.Tokens[i + 1];
             }
         }
