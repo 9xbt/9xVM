@@ -39,7 +39,7 @@ static class Parser {
         }
     }
 
-    public static void ParseTokens() {
+    public static void Assemble() {
         for (int i = 0; i < Tokens.Count; i++) {
             Token t = Tokens[i];
 

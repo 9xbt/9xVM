@@ -23,7 +23,7 @@ static class Program {
                 Parser.ParseLine(lines[i], i);
             }
 
-            Parser.ParseTokens();
+            Parser.Assemble();
         } catch (Exception) { }
 
         File.WriteAllBytes(outputFile, Parser.Output.ToArray());
